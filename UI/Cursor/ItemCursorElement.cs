@@ -7,7 +7,7 @@ namespace InteractiveStore.UI.Cursor
 {
 	public class ItemCursorElement : CursorOutputElement<int>
 	{
-		const int NAME_LENGTH = 25;
+		const int NAME_LENGTH = 30;
 		const char WHITE_SPACE = ' ';
 		public Item item;
 		private float salePercentage;
