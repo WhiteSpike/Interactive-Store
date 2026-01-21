@@ -24,6 +24,7 @@ namespace InteractiveStore.UI.Application
 		const string NO_ITEMS_SELECTED_ERROR = "No items were selected for purchasing...";
 		const string NOT_ENOUGH_CREDITS_ERROR = "You do not have enough Company Credits to purchase the selected items...";
 		const string MAXIMUM_CAPACITY_ERROR = "The amount of items selected and already purchased surpasses the maximum capacity of the item dropship...";
+		const string VEHICLE_IN_POD_ERROR = "You are unable to purchase items when a vehicle is loaded into the drop pod...";
 		#endregion
 		Item[] buyableItems = null;
 		int[] salePercentages = null;
@@ -82,12 +83,6 @@ namespace InteractiveStore.UI.Application
 					itemCursorElements[index++] = elements[j];
 				}
 			}
-			/*
-			for (int i = 0; i < itemCursorElements.Length; i++)
-			{
-				itemCursorElements[i] = new ItemCursorElement(item: buyableItems[i], salePercentage: (salePercentages[i] / 100f), pressAction: () => TryBuySelectedItems(() => SwitchScreen(screen, menu, previous: true)), terminal: terminal);
-			}
-			*/
 			currentPage = initialPage;
 			currentCursorMenu = initialPage.GetCurrentCursorMenu();
 			currentScreen = initialPage.GetCurrentScreen();
@@ -169,6 +164,11 @@ namespace InteractiveStore.UI.Application
 		}
 		void TryBuySelectedItems(Action backAction)
 		{
+			if (terminal.vehicleInDropship)
+			{
+				ErrorMessage(SCREEN_TITLE, VEHICLE_IN_POD_ERROR, backAction, "");
+				return;
+			}
 			int totalItems = 0;
 			int totalCost = 0;
 			StringBuilder sb = new StringBuilder();

@@ -19,7 +19,8 @@ namespace InteractiveStore
             config = new ModConfiguration(Config);
             InteractiveTerminalManager.RegisterApplication<StoreApplication>(config.ItemStoreCommandList.Value, caseSensitive: config.ItemStoreCommandCaseSensitive.Value);
             InteractiveTerminalManager.RegisterApplication<UnlockableStoreApplication>(config.DecorationStoreCommandList.Value, caseSensitive: config.DecorationStoreCommandCaseSensitive.Value);
-            mls = Logger;
+			InteractiveTerminalManager.RegisterApplication<VehicleApplication>(config.VehicleStoreCommandList.Value, caseSensitive: config.VehicleStoreCommandCaseSensitive.Value);
+			mls = Logger;
             mls.LogInfo($"{Metadata.NAME} {Metadata.VERSION} has been loaded successfully.");
         }
     }   
